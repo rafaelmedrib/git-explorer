@@ -1,9 +1,9 @@
 const { expect } = require('chai');
-const sqlite = require('../../src/repositories/sqlite');
+
 const { User } = require('../../src/models/User');
 
-describe('Teste da definição do modelo User', () => {
-    it('Deve definir o modelo User corretamente', () => {
+describe('User', () => {
+    it('should implement the User model properly', () => {
         const attributes = User.rawAttributes;
 
         expect(attributes.id.type.key).to.equal('UUID');
