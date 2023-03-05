@@ -3,29 +3,37 @@
     "version": "1.0.0",
     "description": "",
     "main": "index.js",
+    "type": "commonjs",
     "scripts": {
-      "build": "babel src -d dist",
-      "test": "npx mocha -w --parallel test/*.test.js",
-      "test:cov": "npx nyc npx mocha -r reify --parallel test/*.test.js"
+        "build": "babel src -d dist",
+        "test": "npx mocha -w --parallel test/**/*.test.js",
+        "test:cov": "npx nyc npx mocha -r reify --parallel test/**/*.test.js"
     },
     "keywords": [],
     "author": "",
     "license": "ISC",
     "devDependencies": {
-      "@babel/cli": "^7.21.0",
-      "@babel/core": "^7.21.0",
-      "@babel/preset-env": "^7.20.2",
-      "@faker-js/faker": "^7.6.0",
-      "chai": "^4.3.7",
-      "mocha": "8.4",
-      "nyc": "^15.1.0",
-      "reify": "^0.20.12"
+        "@babel/cli": "^7.21.0",
+        "@babel/core": "^7.21.0",
+        "@babel/preset-env": "^7.20.2",
+        "@faker-js/faker": "^7.6.0",
+        "chai": "^4.3.7",
+        "mocha": "8.4",
+        "nyc": "^15.1.0",
+        "reify": "^0.20.12"
     },
     "nyc": {
-      "all": true,
-      "check-coverage": true,
-      "include": [
-        "src/**/*.js"
-      ]
+        "all": true,
+        "check-coverage": true,
+        "include": [
+            "src/**/*.js"
+        ],
+        "exclude": [
+            "src/config/environment.js"
+        ]
+    },
+    "dependencies": {
+        "sequelize": "^6.29.0",
+        "sqlite3": "^5.1.4"
     }
-  }
+}
