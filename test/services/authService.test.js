@@ -3,10 +3,12 @@ const sinon = require('sinon');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-const { authService } = require('../../src/services/authService');
+const { AuthService } = require('../../src/services/authService');
 const { userRepository } = require('../../src/repositories/userRepository');
 const { favoritesRepository } = require('../../src/repositories/favoritesRepository');
-const {JWT_SECRET} = require("../../src/config/environment");
+const { JWT_SECRET } = require("../../src/config/environment");
+
+const authService = new AuthService();
 
 describe('Auth Service', function () {
     afterEach(() => {

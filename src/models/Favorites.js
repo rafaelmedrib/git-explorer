@@ -6,9 +6,8 @@ const Favorites = sqlite.define('Favorites', {
         type: DataTypes.UUID,
         primaryKey: true
     },
-    urls: {
-        type: DataTypes.ARRAY(DataTypes.STRING),
-        defaultValue: []
+    url: {
+        type: DataTypes.STRING,
     }
 })
 

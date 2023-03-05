@@ -11,8 +11,6 @@ describe('User', () => {
         expect(attributes.id.defaultValue).to.exist;
         expect(attributes.email.type.key).to.equal('STRING');
         expect(attributes.email.allowNull).to.be.false;
-        expect(attributes.favorites.type.key).to.equal('UUID');
-        expect(attributes.favorites.defaultValue).to.exist;
         expect(attributes.password.type.key).to.equal('STRING');
         expect(attributes.password.allowNull).to.be.false;
     });

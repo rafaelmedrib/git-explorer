@@ -1,10 +1,10 @@
 const { favoritesRepository } = require('../repositories/favoritesRepository');
-const { authService } = require('../services/authService')
+const { AuthService } = require('../services/authService')
 
 class FavoritesService {
     constructor() {
         this.favoritesRepository = favoritesRepository;
-        this.authenticate = authService.authenticate;
+        this.authenticate = new AuthService().authenticate;
     }
 
     async save(token, data) {

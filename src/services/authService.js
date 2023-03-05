@@ -63,5 +63,5 @@ class AuthService {
 }
 
 module.exports = {
-    authService: new AuthService()
+    AuthService
 }
