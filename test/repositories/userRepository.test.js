@@ -2,9 +2,13 @@ const { expect } = require('chai');
 const sinon = require('sinon');
 
 const { User } = require('../../src/models/User');
-const userRepository = require('../../src/repositories/userRepository');
+const { userRepository } = require('../../src/repositories/userRepository');
 
 describe('UserRepository', () => {
+    afterEach(() => {
+        sinon.restore();
+    })
+
     describe('findAll', () => {
         it('should return all users', async () => {
             const fakeUsers = [
@@ -25,8 +29,6 @@ describe('UserRepository', () => {
 
             const users = await userRepository.findAll();
             expect(users).to.deep.equal(fakeUsers);
-
-            sinon.restore();
         });
     });
 
@@ -40,8 +42,6 @@ describe('UserRepository', () => {
 
             const user = await userRepository.findById(id);
             expect(user).to.deep.equal(fakeUser);
-
-            sinon.restore();
         });
 
         it('should return null when the user is not found', async () => {
@@ -52,8 +52,32 @@ describe('UserRepository', () => {
 
             const user = await userRepository.findById(id);
             expect(user).to.be.null;
+        });
+    });
 
-            sinon.restore();
+    describe('findByEmail', function () {
+        it('should return the user with the specified email', async () => {
+            const email = 'user1@example.com';
+            const userData = { id: '123', password: 'secret', favorites: null };
+            const fakeUser = { email, ...userData };
+
+            const findOneFake = sinon.fake.returns(fakeUser);
+            sinon.replace(User, 'findOne', findOneFake);
+
+            const user = await userRepository.findByEmail(email);
+            expect(user).to.deep.equal(fakeUser);
+            expect(findOneFake.calledOnce).to.be.true;
+            expect(findOneFake.getCall(0).firstArg).to.deep.equal({ where: { email } });
+        });
+
+        it('should return null when the user is not found', async () => {
+            const email = 'user1@example.com';
+
+            const findOneFake = sinon.fake.returns(null);
+            sinon.replace(User, 'findOne', findOneFake);
+
+            const user = await userRepository.findByEmail(email);
+            expect(user).to.be.null;
         });
     });
 
@@ -67,8 +91,6 @@ describe('UserRepository', () => {
 
             const user = await userRepository.create(userData);
             expect(user).to.deep.equal(fakeUser);
-
-            sinon.restore();
         });
     });
 
@@ -86,8 +108,6 @@ describe('UserRepository', () => {
 
             const response = await userRepository.update(id, userData);
             expect(response).to.deep.equal([1]);
-
-            sinon.restore();
         });
 
         it('should return null when the user is not found', async () => {
@@ -99,8 +119,6 @@ describe('UserRepository', () => {
 
             const user = await userRepository.update(id, userData);
             expect(user).to.be.null;
-
-            sinon.restore();
         });
     });
     describe('delete', function () {
@@ -117,8 +135,6 @@ describe('UserRepository', () => {
 
             const response = await userRepository.delete(id, userData);
             expect(response).to.deep.equal(true);
-
-            sinon.restore();
         });
 
         it('should return false when the user is not found', async () => {
@@ -129,8 +145,6 @@ describe('UserRepository', () => {
 
             const response = await userRepository.delete(id);
             expect(response).to.be.false;
-
-            sinon.restore();
         });
     });
 });

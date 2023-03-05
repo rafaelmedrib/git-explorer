@@ -34,6 +34,8 @@
         ]
     },
     "dependencies": {
+        "bcrypt": "^5.1.0",
+        "jsonwebtoken": "^9.0.0",
         "sequelize": "^6.29.0",
         "sqlite3": "^5.1.4"
     }

@@ -13,5 +13,7 @@ describe('User', () => {
         expect(attributes.favorites.type.key).to.equal('UUID');
         expect(attributes.favorites.allowNull).to.be.true;
         expect(attributes.favorites.unique).to.be.true;
+        expect(attributes.password.type.key).to.equal('STRING');
+        expect(attributes.password.allowNull).to.be.false;
     });
 });
