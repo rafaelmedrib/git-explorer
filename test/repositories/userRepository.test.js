@@ -107,13 +107,13 @@ describe('UserRepository', () => {
         it('should delete the user specified id', async () => {
             const id = '123';
             const userData = {email: 'user1@example.com', favorites: '789', destroy: () => {}};
-            const updatedUser = {id, ...userData};
+            const user = {id, ...userData};
 
-            const findByPkFake = sinon.fake.returns(updatedUser);
+            const findByPkFake = sinon.fake.returns(user);
             sinon.replace(User, 'findByPk', findByPkFake);
 
-            const updateFake = sinon.fake.returns(true);
-            sinon.replace(updatedUser, 'destroy', updateFake);
+            const destroyFake = sinon.fake.returns(true);
+            sinon.replace(user, 'destroy', destroyFake);
 
             const response = await userRepository.delete(id, userData);
             expect(response).to.deep.equal(true);
