@@ -2,8 +2,7 @@ const { expect } = require('chai');
 const sinon = require('sinon');
 
 const { Favorites } = require('../../src/models/Favorites');
-const favoritesRepository = require('../../src/repositories/favoritesRepository');
-const userRepository = require("../../src/repositories/userRepository");
+const { favoritesRepository }= require('../../src/repositories/favoritesRepository');
 
 describe('FavoritesRepository', () => {
     describe('findAll', () => {

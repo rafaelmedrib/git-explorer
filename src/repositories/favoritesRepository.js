@@ -31,4 +31,6 @@ class FavoritesRepository {
     }
 }
 
-module.exports = new FavoritesRepository();
+module.exports = {
+  favoritesRepository: new FavoritesRepository()
+}
