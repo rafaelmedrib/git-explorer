@@ -9,6 +9,10 @@ class UserRepository {
         return User.findByPk(id);
     }
 
+    async findByEmail(email) {
+        return User.findOne({ where: { email } });
+    }
+
     async create(data) {
         return User.create(data);
     }
@@ -31,4 +35,7 @@ class UserRepository {
     }
 }
 
-module.exports = new UserRepository();
+module.exports = {
+    userRepository: new UserRepository()
+}
+

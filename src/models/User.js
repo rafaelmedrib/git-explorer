@@ -11,6 +11,10 @@ const User = sqlite.define('User', {
         type: DataTypes.STRING,
         allowNull: false
     },
+    password: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
     favorites: {
         type: DataTypes.UUID,
         allowNull: true,
