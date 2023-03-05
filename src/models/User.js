@@ -17,8 +17,7 @@ const User = sqlite.define('User', {
     },
     favorites: {
         type: DataTypes.UUID,
-        allowNull: true,
-        unique: true
+        defaultValue: DataTypes.UUIDV4
     }
 });
 

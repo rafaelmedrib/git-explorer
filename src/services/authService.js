@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken");
 
 const { userRepository } = require('../repositories/userRepository');
+const { favoritesRepository } = require('../repositories/favoritesRepository');
 const { JWT_SECRET } = require("../config/environment");
 
 class AuthService {
@@ -16,12 +17,16 @@ class AuthService {
             throw new Error('User already exists');
         }
 
-        const hashedPassword = bcrypt.hash(password)
+        const hashedPassword = await bcrypt.hash(password, 10);
 
-        await this.userRepository.create({
+        const user = await this.userRepository.create({
             email,
             password: hashedPassword
         })
+
+        await favoritesRepository.create({
+            id: user.favorites
+        });
 
         return true;
     }
@@ -38,9 +43,22 @@ class AuthService {
             throw new Error('Incorrect credentials');
         }
 
-        const token = jwt.sign({ id: user.id }, JWT_SECRET, { expiresIn: '1h' });
+        const token = jwt.sign({ id: user.id , favorites: user.favorites }, JWT_SECRET, { expiresIn: '1h' });
 
         return token;
+    }
+
+    async authenticate(token) {
+        try {
+            const { id, favorites } = jwt.verify(token, JWT_SECRET);
+
+            return {
+                id,
+                favorites
+            }
+        } catch (e) {
+            throw new Error('Invalid token');
+        }
     }
 }
 

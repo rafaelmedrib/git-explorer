@@ -8,11 +8,11 @@ describe('User', () => {
 
         expect(attributes.id.type.key).to.equal('UUID');
         expect(attributes.id.primaryKey).to.be.true;
+        expect(attributes.id.defaultValue).to.exist;
         expect(attributes.email.type.key).to.equal('STRING');
         expect(attributes.email.allowNull).to.be.false;
         expect(attributes.favorites.type.key).to.equal('UUID');
-        expect(attributes.favorites.allowNull).to.be.true;
-        expect(attributes.favorites.unique).to.be.true;
+        expect(attributes.favorites.defaultValue).to.exist;
         expect(attributes.password.type.key).to.equal('STRING');
         expect(attributes.password.allowNull).to.be.false;
     });
