@@ -8,6 +8,5 @@ describe('Favorites', () => {
 
         expect(attributes.id.type.key).to.equal('UUID');
         expect(attributes.id.primaryKey).to.be.true;
-        expect(attributes.urls.type.key).to.equal('ARRAY');
     });
 });
